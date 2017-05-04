@@ -18,3 +18,6 @@ def landing(request):
         form = form.save()
 
     return render(request, 'mainApp/landing.html', locals())
+
+def home(request):
+    return render(request, 'mainApp/home.html')
