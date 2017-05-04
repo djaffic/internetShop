@@ -1,0 +1,50 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!-- loading bootstrap style -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- loading custom style -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,400" rel="stylesheet">
+
+</head>
+<body>
+
+
+    <div class="general-container">
+        <div class="container top-container">
+            <div class="row text-center">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h1 class="title">Наш магазин скоро откроется</h1>
+                    <h2 class="title">Оставляйте свой email в форме ниже</h2>
+                    <div>
+                        <form action="" class="form form-inline form-subscriber" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ form.name }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.email }}
+                            </div>
+                            <button type="submit" class="btn btn-success">Отправить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+    <!-- bootstrap.js -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+</body>
+</html>
