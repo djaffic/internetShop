@@ -62,7 +62,7 @@ class ProductInOrder(models.Model):
         price_per_item = self.product.price
         self.price_per_item = price_per_item
 
-        self.total_price = price_per_item * self.count
+        self.total_price = price_per_item * self.nmb
 
         super(ProductInOrder, self).save(*args, **kwargs)
 
@@ -79,3 +79,30 @@ def product_in_order_post_save(sender, instance, created, **kwargs):
     instance.order.save(force_update=True)
 
 post_save.connect(product_in_order_post_save, sender=ProductInOrder)
+
+
+class ProductInBasket(models.Model):
+    session_key = models.CharField(max_length=128, blank=True, null=True, default=None)
+    order = models.ForeignKey(Order, blank=True, null=True, default=None)
+    product = models.ForeignKey(Product, blank=True, null=True, default=None)
+    nmb = models.IntegerField(default=1)
+    price_per_item = models.DecimalField(default=0, max_digits=10, decimal_places=2)
+    total_price = models.DecimalField(default=0, max_digits=10, decimal_places=2)  # price*count
+    is_active = models.BooleanField(default=True)
+    created = models.DateTimeField(auto_now_add=True, auto_now=False)
+    updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    class Meta:
+        verbose_name = "Товар в корзине"
+        verbose_name_plural = "Товары в корзине"
+
+    def __str__(self):
+        return '%s' % self.product.name
+
+    def save(self, *args, **kwargs):
+        price_per_item = self.product.price
+        self.price_per_item = price_per_item
+
+        self.total_price = price_per_item * int(self.nmb)
+
+        super(ProductInBasket, self).save(*args, **kwargs)

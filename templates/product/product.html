@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                {% for image_item in product.productimage_set.all %}
+                    <img src="{{ image_item.image.url }}" alt="" class="img-responsive">
+                {% endfor %}
+            </div>
+            <div class="col-lg-6">
+                <h2 class="text-center">
+                    {{ product.name }}
+                </h2>
+                <div class="item-product-price">
+                    <h3>
+                        Price: {{ product.price }} RUB
+                    </h3>
+                </div>
+                <div class="item-product-description">
+                    {{ product.description }}
+                </div>
+                <div class="item-product-button">
+                    <form action="{% url 'basket_adding' %}" class="form_buying_product form-inline">{% csrf_token %}
+                        <input type="number" class="form-control" name="number" id="number">
+                        <button type="submit" id="submit_btn" class="btn btn-success btn-buy"
+                            data-product_id = "{{ product.id }}"
+                            data-name = "{{ product.name }}"
+                            data-price = "{{ product.price }}"
+                            >
+                            Купить
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

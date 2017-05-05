@@ -1,5 +1,38 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-
+    <div class="section-top">
+        <img src="{% static 'img/slider.jpg'%}" class="img-responsive">
+    </div>
+    <div class="section section1">
+        <div class="container">
+            <div class="row">
+                <h2 class="text-center">Новые поступления</h2>
+                {% for product_image in products_images %}
+                    {% include 'mainApp/product_item.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="section section2 phone-container">
+        <div class="container">
+            <div class="row">
+                <h2 class="text-center">Телефоны</h2>
+                {% for product_image in products_images_phones %}
+                    {% include 'mainApp/product_item.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="section section3 laptop-container">
+        <div class="container">
+            <div class="row">
+                <h2 class="text-center">Ноутбуки</h2>
+                {% for product_image in products_images_laptops %}
+                    {% include 'mainApp/product_item.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
